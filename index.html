@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Commerce App</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+
+<div class="navbar">
+    <h1>My Store</h1>
+</div>
+
+<div class="container">
+
+{% if session.user %}
+
+    <p>Welcome, {{ session.user }}</p>
+
+    <a href="/logout">
+        <button>Logout</button>
+    </a>
+
+{% else %}
+
+    <a href="/register">
+        <button>Register</button>
+    </a>
+
+    <a href="/login">
+        <button>Login</button>
+    </a>
+
+{% endif %}
+
+<br><br>
+
+<a href="/cart">
+    <button>Go to Cart</button>
+</a>
+
+{% if session.role == 'admin' %}
+
+    <a href="/add_product">
+        <button>Add Product</button>
+    </a>
+
+{% endif %}
+
+<br><br>
+
+<div class="products">
+
+    {% for product in products %}
+
+        <div class="card">
+
+            <h2>{{ product[1] }}</h2>
+
+            <p>Price: ₹{{ product[2] }}</p>
+
+            <a href="/add_to_cart/{{ product[0] }}">
+                <button>Add to Cart</button>
+            </a>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+</div>
+
+</body>
+</html>
